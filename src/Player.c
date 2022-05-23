@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <string.h>
 
@@ -16,8 +15,8 @@ enum Command{
     save
 };
 
-void checkCommand(char* command){
-    switch (command) {
+void checkCommand(char** command){
+    switch (command[0]) {
         case add:
             break;
         case del:
@@ -46,6 +45,24 @@ void checkCommand(char* command){
     }
 }
 
+char** splitCommandArgument(char* cmdArg){
+    char *ptr = strtok(cmdArg, " ");
+
+    int argc = 1;
+    char* command = "";
+    char* argument = "";
+    while (ptr != NULL)
+    {
+        if(argc == 1) { command = ptr; }
+        if(argc == 2) { argument = ptr; }
+        ptr = strtok(NULL, " ");
+    }
+    printf("%s %s\n", command, argument);
+    char** comandAndArgument = {command, argument};
+
+    return comandAndArgument;
+}
+
 int main(){
     int musicNum = 0;
     scanf("%d", &musicNum);
@@ -63,12 +80,7 @@ int main(){
         char *command;
         scanf("%s", command);
 
-        char *ptr = strtok(command, " ");
-
-        while (ptr != NULL)
-        {
-            checkCommand(ptr);
-            ptr = strtok(NULL, " ");
-        }
+        char** commandAndArgument = splitCommandArgument(command);
+        checkCommand(commandAndArgument);
     }
 }
