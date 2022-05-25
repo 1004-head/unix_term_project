@@ -45,8 +45,12 @@ void checkCommand(char** command){
         case quit:
             break;
         case load:
+            char *fileName = command[1];
+            read_file(fileName);
             break;
         case save:
+            char *fileName = command[1];
+            write_file(fileName);
             break;
         default:
             printf("Invalid Command\n");
