@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "linkedlist.h"
-#include "textfilewriter.h"
+#include "../include/linkedlist.h"
+#include "../include/textfilewriter.h"
 
 #define MAX_TITLE_SIZE 50
 
 void create_music_titles(FILE* stream){
-	Node* playlist = NULL;
 
 	int num = 0;
 	int i = 0;
@@ -50,13 +49,13 @@ void write_file(char* file_name){
 	}
 
 	else {
+		if (_cur_node->data = NULL) return;
 
-		Node* p = _tail;
-		while (p->prev != _head) {
+		Node* p = last();
+		while (p != _head) {
 			fprintf(fp, "%s\n", p->data);
 			p = p->prev;
 		}
-		fprintf(fp,"%s\n", p->data);
 	}
 
 	fclose(fp);
