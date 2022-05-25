@@ -1,13 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "linkedlist.h"
+#include "textfilewriter.h"
 
 #define MAX_TITLE_SIZE 50
 
 void create_music_titles(FILE* stream){
+	Node* playlist = NULL;
+
+	int num = 0;
+	int i = 0;
 	
+	fscanf(fp,"%d", &num);
+
+	for (i; i < num; i++) {
+
+		char title[MAX_TITLE_SIZE];
+
+		while (fgets(title, sizeof(title), fp) != NULL) {
+
+			append(sizeof(title),title);
+
+		}
+	}
 }
 
 void read_file(char* file_name){
-
-	char title[MAX_TITLE_SIZE];
 
 	FILE* fp = fopen(file_name, "r");
 
@@ -16,10 +35,7 @@ void read_file(char* file_name){
 	}
 
 	else {
-
-		while (fgets(title, sizeof(title), fp) != NULL ){
-			printf("%s", title);
-		}
+		create_music_titles(fp);
 	}
 
 	fclose(fp);
