@@ -43,5 +43,21 @@ void read_file(char* file_name){
 }
 
 void write_file(char* file_name){
+	FILE* fp = fopen(file_name,"w");
 
+	if (fp == NULL) {
+		printf("FILE ERROR!\n");
+	}
+
+	else {
+
+		Node* p = _tail;
+		while (p->prev != _head) {
+			fprintf(fp, "%s\n", p->data);
+			p = p->prev;
+		}
+		fprintf(fp,"%s\n", p->data);
+	}
+
+	fclose(fp);
 }
