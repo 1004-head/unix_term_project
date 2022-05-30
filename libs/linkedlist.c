@@ -1,3 +1,5 @@
+#include "linkedlist.h"
+
 static Node* _head = NULL;
 static Node* _tail = NULL;
 static Node* _cur_node = NULL;
@@ -21,7 +23,19 @@ void print(){
 
 void print_file(FILE* stream);
 
-void clear();
+// free 아직 안넣음
+void clear(){
+    if (!empty()){
+        Node* now = _head->next;
+        Node* next;
+        while (now != NULL){
+            next = now->next;
+            delete_node(now);
+            now = next;
+        }
+    }
+    printf("LinkedList is cleared!\n");
+}
 
 Node* append_left(size_t n, char new_data[n]){
     Node* new = (Node*)malloc(sizeof(Node));
@@ -110,8 +124,9 @@ Node* delete(char* data){
 
 Node* get_node(size_t index){
     Node* now = _head;
+    size_t cnt_max = (index <= _size)? index : _size;
 
-    for (size_t cnt = 0; cnt < index; cnt++){
+    for (size_t cnt = 0; cnt < cnt_max; cnt++){
         now = now->next;
     }
 
@@ -127,9 +142,32 @@ Node* last(){
 }
 
 Node* next(){
-    return _cur_node->next;
+    if (empty())
+        _cur_node = NULL;
+    else if (_cur_node->next)
+        _cur_node = _cur_node->next;
+    return _cur_node;
 }
 
 Node* prev(){
-    return _cur_node->prev;
+    if (empty())
+        _cur_node = NULL;
+    else if (_cur_node->prev)
+        _cur_node = _cur_node->prev;
+    return _cur_node;
+}
+
+
+// 추가 함수
+void init_state(){
+    _head = (Node*)malloc(sizeof(Node));
+    _tail = (Node*)malloc(sizeof(Node));
+
+    _head->prev = NULL;
+    _head->next = _tail;
+    
+    _tail->prev = _head;
+    _tail->next = NULL;
+    
+    _cur_node = NULL; 
 }
