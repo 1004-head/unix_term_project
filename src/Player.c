@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <string.h>
+#include "include/linkedlist.h"
+#include "include/textfilewriter.h"
 
 enum Command{
     add,
@@ -18,10 +18,19 @@ enum Command{
 void checkCommand(char** command){
     switch (command[0]) {
         case add:
+            char *title = malloc(sizeof(command[1]));
+            title = command[1];
+            append_left(sizeof(title), title);
             break;
         case del:
             break;
         case list:
+            printf("LinkedList [ ");
+            Node *node;
+            for(node=first();node==last();node=next()){
+                printf("%s ", node->data);
+            }
+            printf("%s ]", node->date);
             break;
         case next:
             break;
@@ -36,8 +45,12 @@ void checkCommand(char** command){
         case quit:
             break;
         case load:
+            char *fileName = command[1];
+            read_file(fileName);
             break;
         case save:
+            char *fileName = command[1];
+            write_file(fileName);
             break;
         default:
             printf("Invalid Command\n");
