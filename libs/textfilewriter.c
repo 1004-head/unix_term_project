@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "../include/linkedlist.h"
-#include "../include/textfilewriter.h"
+#include "linkedlist.h"
+#include "textfilewriter.h"
 
 #define MAX_TITLE_SIZE 50
 
@@ -49,13 +50,7 @@ void write_file(char* file_name){
 	}
 
 	else {
-		if (_cur_node->data = NULL) return;
-
-		Node* p = last();
-		while (p != _head) {
-			fprintf(fp, "%s\n", p->data);
-			p = p->prev;
-		}
+		print_file(fp);
 	}
 
 	fclose(fp);
